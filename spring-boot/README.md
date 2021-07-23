@@ -1,1 +1,1 @@
-spring-boot-demo-api
+spring-boot-api

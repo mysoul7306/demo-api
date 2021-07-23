@@ -4,12 +4,12 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.rokroot.demo-api</groupId>
+	<groupId>kr.co.rokroot.demo.api</groupId>
 	<artifactId>demo-core</artifactId>
 	<name>demo-core</name>
-	<description>Demo API using spring framework 5 project</description>
+	<description>Demo core project</description>
 	<version>0.0.1-ALPHA</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -19,26 +19,6 @@
 		<apache.commons.version>2.8.0</apache.commons.version>
 		<jasypt.version>1.9.3</jasypt.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>central</id>
-			<name>Central Repository</name>
-			<layout>default</layout>
-			<url>https://repo1.maven.org/maven2/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring</id>
-			<name>Spring Plugins Repository</name>
-			<url>https://repo.spring.io/plugins-release/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 
