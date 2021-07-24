@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Author: rok_root
+  ~ Created time: 2021. 07. 25
+  ~ Copyrights rok_root. All rights reserved.
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>kr.co.rokroot.demo</groupId>
-	<artifactId>demo</artifactId>
-	<name>demo</name>
-	<description>Demo project</description>
+	<groupId>kr.co.rokroot.spring.demo</groupId>
+	<artifactId>api</artifactId>
+	<name>api</name>
+	<description>Demo API project</description>
 	<version>0.0.1-ALPHA</version>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>spring-boot</module>
-		<module>spring-framework</module>
+		<module>swagger-jpa</module>
+		<module>swagger-mybatis</module>
 	</modules>
 
 	<properties>
