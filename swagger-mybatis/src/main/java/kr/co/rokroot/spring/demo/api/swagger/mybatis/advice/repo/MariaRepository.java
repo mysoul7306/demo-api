@@ -6,20 +6,20 @@
 
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.repo;
 
+import kr.co.rokroot.core.abstracts.AbstractRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.annotation.Resource;
 
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class MariaRepository extends DefaultTransactionDefinition {
+public class MariaRepository extends AbstractRepository {
 
     @Getter
     @Resource(name = "mariaSqlSessionTemplate")
