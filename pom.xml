@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Author: rok_root
+  ~ Created time: 2021. 07. 25
+  ~ Copyrights rok_root. All rights reserved.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>kr.co.rokroot.spring.demo</groupId>
+	<artifactId>api</artifactId>
+	<name>api</name>
+	<description>Demo API project</description>
+	<version>0.0.1-ALPHA</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>swagger-jpa</module>
+		<module>swagger-mybatis</module>
+	</modules>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.source.encoding>UTF-8</project.build.source.encoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<layout>default</layout>
+			<url>https://repo1.maven.org/maven2/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring</id>
+			<name>Spring Plugins Repository</name>
+			<url>https://repo.spring.io/plugins-release/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.source.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<wtpContextName>/</wtpContextName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/props/**</exclude>
+				</excludes>
+			</resource>
+
+			<resource>
+				<directory>${prop.location}</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*</include>
+				</includes>
+				<targetPath>./props</targetPath>
+			</resource>
+		</resources>
+	</build>
+
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<prop.location>src/main/resources/props/local</prop.location>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<prop.location>src/main/resources/props/dev</prop.location>
+			</properties>
+		</profile>
+		<profile>
+			<id>stg</id>
+			<properties>
+				<prop.location>src/main/resources/props/stg</prop.location>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<prop.location>src/main/resources/props/prod</prop.location>
+			</properties>
+		</profile>
+	</profiles>
+</project>
