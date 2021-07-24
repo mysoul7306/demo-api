@@ -1,1 +1,1 @@
-spring-framework-demo-api
+spring-framework-api
