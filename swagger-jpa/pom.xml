@@ -33,9 +33,9 @@
 
         <!-- Core module -->
         <dependency>
-            <groupId>kr.co.rokroot</groupId>
+            <groupId>kr.co.rokroot.spring</groupId>
             <artifactId>core</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- Spring Framework -->
