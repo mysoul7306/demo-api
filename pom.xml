@@ -12,30 +12,9 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>core</module>
 		<module>spring-boot</module>
 		<module>spring-framework</module>
 	</modules>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>kr.co.rokroot.demo</groupId>
-				<artifactId>core</artifactId>
-				<version>0.0.1-ALPHA</version>
-			</dependency>
-			<dependency>
-				<groupId>kr.co.rokroot.demo.api</groupId>
-				<artifactId>spring-boot</artifactId>
-				<version>0.0.1-ALPHA</version>
-			</dependency>
-			<dependency>
-				<groupId>kr.co.rokroot.demo.api</groupId>
-				<artifactId>spring-framework</artifactId>
-				<version>0.0.1-ALPHA</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<properties>
 		<java.version>1.8</java.version>

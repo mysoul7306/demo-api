@@ -18,7 +18,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.framework.version>5.2.16.RELEASE</spring.framework.version>
+		<spring.framework.version>5.3.9</spring.framework.version>
 		<spring.security.version>5.5.1</spring.security.version>
 		<spring.fox.version>2.9.2</spring.fox.version>
 	</properties>
@@ -27,9 +27,9 @@
 
 		<!-- Core module -->
 		<dependency>
-			<groupId>kr.co.rokroot.demo</groupId>
+			<groupId>kr.co.rokroot</groupId>
 			<artifactId>core</artifactId>
-			<scope>compile</scope>
+			<version>1.0.0</version>
 		</dependency>
 
 		<!-- Spring Framework -->
@@ -158,5 +158,19 @@
 			<version>2.0.6</version>
 		</dependency>
 
+		<!-- Aspectj Weaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.6</version>
+		</dependency>
+
+		<!-- Spring test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>
