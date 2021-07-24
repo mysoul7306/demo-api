@@ -15,30 +15,33 @@ import java.util.Map;
 
 @ToString
 @AllArgsConstructor
-public enum DatabaseType {
+public enum QueryType {
 
-    MariaDB("Maria database"),
-    OracleDB("Oracle database"),
-    MicrosoftDB("MS-SQL database");
+    SELECT_ONE("Select one row"),
+    SELECT_LIST("Select list row"),
+    INSERT("Insert rows"),
+    UPDATE("Update rows"),
+    DELETE("Delete rows");
 
     @Getter
     private final String desc;
 
-    private static final Map<String, DatabaseType> values;
+    private static final Map<String, QueryType> values;
     static {
         values = new HashMap<>();
-        for (DatabaseType e : DatabaseType.values()) {
+        for (QueryType e : QueryType.values()) {
             values.put(e.desc, e);
         }
     }
 
-    public static DatabaseType fromValue(Object value) {
+    public static QueryType fromValue(Object value) {
         assert value != null;
         return fromValue(value.toString());
     }
 
-    public static DatabaseType fromValue(String value) {
+    public static QueryType fromValue(String value) {
         assert value != null;
         return values.get(value.trim());
     }
+
 }
