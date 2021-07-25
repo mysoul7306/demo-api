@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-@ComponentScan(basePackages = "kr.co.rokroot.demo.api.spring.framework",
+@ComponentScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.jpa",
         includeFilters = @ComponentScan.Filter({ Service.class, Repository.class, Component.class }),
         useDefaultFilters = false)
 @Import({ MariaDataSource.class, OracleDataSource.class, MSDataSource.class })

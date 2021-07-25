@@ -44,7 +44,7 @@ public class SwaggerConfig {
     public Docket openAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("kr.co.rokroot.demo.api.spring.framework.module"))
+                .apis(RequestHandlerSelectors.basePackage("kr.co.rokroot.spring.demo.api.swagger.jpa.module"))
                 .paths(PathSelectors.any())
                 .build()
                 .forCodeGeneration(true)

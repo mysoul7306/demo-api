@@ -7,7 +7,7 @@
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.intr;
 
 import kr.co.rokroot.core.abstracts.AbstractRestResponse;
-import kr.co.rokroot.core.exceptions.BizException;
+import kr.co.rokroot.core.exceptions.DemoException;
 import kr.co.rokroot.core.type.ResultType;
 import kr.co.rokroot.core.wrappers.RestSingleResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -90,9 +90,9 @@ public class ExceptionInterceptor {
         return this.responseException(request, e);
     }
 
-    @ExceptionHandler(BizException.class)
+    @ExceptionHandler(DemoException.class)
     @ResponseBody
-    protected RestSingleResponse interceptBizException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+    protected RestSingleResponse interceptDemoException(HttpServletRequest request, HttpServletResponse response, Exception e) {
         return this.responseException(request, e);
     }
 

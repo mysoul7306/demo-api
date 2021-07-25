@@ -29,4 +29,7 @@ public class MariaRepository extends AbstractRepository {
     @Resource(name = "mariaTransactionManager")
     private final DataSourceTransactionManager transaction;
 
+    @Getter
+    private final String repository = MariaRepository.class.getName();
+
 }

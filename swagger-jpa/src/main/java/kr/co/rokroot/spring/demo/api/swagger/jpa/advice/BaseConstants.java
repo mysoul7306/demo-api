@@ -24,7 +24,6 @@ public class BaseConstants {
     public static final String SWAGGER_SCRIPTS_URL = ROOT + "webjars/**";
     public static final String SWAGGER_RESOURCES_URL = ROOT + "swagger-resources/**";
 
-
     private static BaseConstants baseConstants;
     public static synchronized BaseConstants getInstance() {
         if (baseConstants == null) {
@@ -33,7 +32,6 @@ public class BaseConstants {
         }
         return baseConstants;
     }
-
 
     public Map<String, Map<String, List>> baseInfoMap = new HashMap<>();
     public Map<String, List> authMap = new HashMap<>();
