@@ -61,7 +61,7 @@ public class MariaDataSource {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(mariaDataSource);
 		sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("**/repo/*.xml"));
-		sessionFactory.setTypeAliasesPackage("kr.co.rokroot.demo.api.spring.framework");
+		sessionFactory.setTypeAliasesPackage("kr.co.rokroot.spring.demo.api.swagger.mybatis");
 		sessionFactory.setTypeAliasesSuperType(Serializable.class);
 		sessionFactory.setConfigurationProperties(this.getProperties());
 		sessionFactory.setTypeHandlers(

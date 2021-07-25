@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @EnableWebMvc
-@ComponentScan(basePackages = "kr.co.rokroot.demo.api.spring.framework",
+@ComponentScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis",
         includeFilters = @ComponentScan.Filter({ Controller.class, ControllerAdvice.class }),
         useDefaultFilters = false)
 @Import({ SecurityConfig.class, SwaggerConfig.class })

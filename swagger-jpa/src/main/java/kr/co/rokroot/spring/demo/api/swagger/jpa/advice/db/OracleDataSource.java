@@ -6,7 +6,6 @@
 
 package kr.co.rokroot.spring.demo.api.swagger.jpa.advice.db;
 
-import kr.co.rokroot.core.annotations.OracleDB;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement(proxyTargetClass = true)
