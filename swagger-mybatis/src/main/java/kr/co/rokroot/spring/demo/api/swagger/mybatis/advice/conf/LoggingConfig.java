@@ -23,7 +23,7 @@ public class LoggingConfig extends ConfigurationFactory {
 
     public static Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
         builder.setConfigurationName(name);
-        builder.setStatusLevel(Level.DEBUG);
+        builder.setStatusLevel(Level.INFO);
         builder.setMonitorInterval("30");
 
         builder.add(builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL));
