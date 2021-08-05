@@ -26,7 +26,7 @@
     <properties>
         <spring.framework.version>5.3.9</spring.framework.version>
         <spring.security.version>5.5.1</spring.security.version>
-        <spring.fox.version>2.9.2</spring.fox.version>
+        <spring.fox.version>3.0.0</spring.fox.version>
     </properties>
 
     <dependencies>
@@ -63,6 +63,16 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
         <dependency>
@@ -119,7 +129,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.5</version>
+            <version>1.5.9</version>
         </dependency>
 
         <!-- Servlet -->
@@ -139,14 +149,14 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.4.3.Final</version>
+            <version>7.0.1.Final</version>
         </dependency>
 
         <!-- Aspectj Weaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.6</version>
+            <version>1.9.7</version>
         </dependency>
 
         <!-- Spring test -->

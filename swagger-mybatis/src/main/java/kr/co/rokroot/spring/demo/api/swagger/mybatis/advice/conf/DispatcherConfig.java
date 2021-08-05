@@ -62,9 +62,8 @@ public class DispatcherConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(BaseConstants.SWAGGER_UI_URL)
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler(BaseConstants.SWAGGER_SCRIPTS_URL)
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+                .resourceChain(false);
     }
 
     @Override
@@ -86,7 +85,6 @@ public class DispatcherConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
-        webContentInterceptor.setAlwaysUseFullPath(true);
         webContentInterceptor.setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES).cachePrivate());
         registry.addInterceptor(webContentInterceptor);
 

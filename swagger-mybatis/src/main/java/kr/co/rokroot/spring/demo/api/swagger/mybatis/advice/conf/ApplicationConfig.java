@@ -37,5 +37,4 @@ public class ApplicationConfig {
 
         return encryptor;
     }
-
 }

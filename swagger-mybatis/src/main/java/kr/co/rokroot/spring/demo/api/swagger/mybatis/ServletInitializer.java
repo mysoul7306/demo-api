@@ -48,17 +48,11 @@ public class ServletInitializer implements WebApplicationInitializer {
         } catch (Exception e) {
             throw new DemoException("Register character encoding filter failed", e);
         }
-        // Setting Log4j file path
-        try {
-
-        } catch (Exception e) {
-            throw new DemoException("Register Log4j property files failed", e);
-        }
     }
 
 
     protected void registerContextParameter(ServletContext servletContext) throws Exception {
-        servletContext.setInitParameter("webAppRootKey", "kr.co.rokroot.spring.demo.api.mybatis");
+        servletContext.setInitParameter("webAppRootKey", "rokroot.api.mybatis");
     }
 
     protected void registerCharacterEncodingFilter(ServletContext servletContext) throws Exception {
