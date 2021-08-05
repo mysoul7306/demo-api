@@ -1,7 +1,6 @@
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.conf;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
@@ -20,23 +19,18 @@ import java.nio.charset.StandardCharsets;
 public class LoggingConfig extends ConfigurationFactory {
 
     protected final String[] SUFFIXES = new String[]{".json", "*"};
-    protected static final String PATTERN = "[%d{HH:mm:ss.SSS}] [%highlight{%-5level}] [%thread] %cyan{%logger{30}}[%method:%line] - %m%n";
+    protected static final String PATTERN = "[%d{HH:mm:ss.SSS}] [%p{length=2}] %cyan{%c{1.}{(%M:%L)}} - %m%n";
 
     public static Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
         builder.setConfigurationName(name);
         builder.setStatusLevel(Level.DEBUG);
+        builder.setMonitorInterval("30");
 
         builder.add(builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL));
 
         PatternLayout pattern = PatternLayout.newBuilder()
                 .withPattern(PATTERN)
                 .withCharset(StandardCharsets.UTF_8)
-                .build();
-
-        Appender console = ConsoleAppender.newBuilder()
-                .setName(ConsoleAppender.Target.SYSTEM_OUT.name())
-                .setLayout(pattern)
-                .setTarget(ConsoleAppender.Target.SYSTEM_OUT)
                 .build();
 
         AppenderComponentBuilder appenderBuilder = builder.newAppender("ConsoleAppender", "CONSOLE")
@@ -49,14 +43,6 @@ public class LoggingConfig extends ConfigurationFactory {
                 .addAttribute("marker", "FLOW"));
 
         builder.add(appenderBuilder);
-
-        builder.add(builder.newLogger("org.apache.logging.log4j", Level.DEBUG)
-                .add(builder.newAppenderRef("ConsoleAppender"))
-                .addAttribute("additivity", false));
-
-        builder.add(builder.newLogger("kr.co.rokroot", Level.DEBUG)
-                .add(builder.newAppenderRef("ConsoleAppender"))
-                .addAttribute("additivity", false));
 
         builder.add(builder.newRootLogger(Level.DEBUG)
                 .add(builder.newAppenderRef("ConsoleAppender")));

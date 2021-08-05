@@ -26,7 +26,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan(annotationClass = MariaDB.class)
+@MapperScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis", annotationClass = MariaDB.class)
 public class MariaDataSource {
 
 	protected final Properties prop = PropertyUtility.getProperties("jdbc.yaml");

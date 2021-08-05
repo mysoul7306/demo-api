@@ -11,7 +11,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan(annotationClass = MicrosoftDB.class)
+@MapperScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis", annotationClass = MicrosoftDB.class)
 public class MSDataSource {
 
 
