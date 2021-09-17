@@ -30,18 +30,21 @@ public class ServletInitializer implements WebApplicationInitializer {
         } catch (Exception e) {
             throw new DemoException("Register context parameter failed", e);
         }
+
         // Default character encoding UTF-8
         try {
             this.registerCharacterEncodingFilter(servletContext);
         } catch (Exception e) {
             throw new DemoException("Register context loader listener failed", e);
         }
+
         // Setting dispatcher servlet
         try {
             this.registerDispatcherServlet(servletContext);
         } catch (Exception e) {
             throw new DemoException("Register dispatcher servlet failed", e);
         }
+
         // Setting application context
         try {
             this.registerApplicationContext(servletContext);
