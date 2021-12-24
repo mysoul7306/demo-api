@@ -38,8 +38,8 @@ public class MariaDataSource {
 		dataSource.setUrl(this.prop.getProperty("maria.jdbc.url"));
 		dataSource.setUsername(this.prop.getProperty("maria.jdbc.username"));
 		dataSource.setPassword(this.prop.getProperty("maria.jdbc.password"));
-		dataSource.setMaxTotal(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.total")));
 		dataSource.setMaxIdle(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.idle")));
+		dataSource.setMaxTotal(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.total")));
 		// TODO :: Encrypt URL
 		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
 		dataSource.setValidationQuery("SELECT 1 FROM dual");

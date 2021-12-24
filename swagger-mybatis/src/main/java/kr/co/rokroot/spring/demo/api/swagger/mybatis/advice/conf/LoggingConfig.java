@@ -14,14 +14,14 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
-@Plugin(name = "LoggingConfig", category = ConfigurationFactory.CATEGORY)
 @Order(10)
+@Plugin(name = "LoggingConfig", category = ConfigurationFactory.CATEGORY)
 public class LoggingConfig extends ConfigurationFactory {
 
+    protected final String PATTERN = "[%d{HH:mm:ss.SSS}] [%p{length=2}] %cyan{%c{1.}{(%M:%L)}} - %m%n";
     protected final String[] SUFFIXES = new String[]{".json", "*"};
-    protected static final String PATTERN = "[%d{HH:mm:ss.SSS}] [%p{length=2}] %cyan{%c{1.}{(%M:%L)}} - %m%n";
 
-    public static Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
+    public Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
         builder.setConfigurationName(name);
         builder.setStatusLevel(Level.INFO);
         builder.setMonitorInterval("30");

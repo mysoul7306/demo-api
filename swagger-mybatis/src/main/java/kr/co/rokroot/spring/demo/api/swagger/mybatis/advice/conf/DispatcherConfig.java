@@ -41,6 +41,12 @@ public class DispatcherConfig implements WebMvcConfigurer {
     }
 
     @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.freeMarker();
+        registry.tiles();
+    }
+
+    @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.favorParameter(false)
                 .ignoreAcceptHeader(false)
