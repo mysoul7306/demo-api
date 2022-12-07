@@ -8,8 +8,8 @@ package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.intr;
 
 import kr.co.rokroot.core.abstracts.AbstractRestResponse;
 import kr.co.rokroot.core.exceptions.DemoException;
-import kr.co.rokroot.core.type.ResultType;
-import kr.co.rokroot.core.wrappers.RestSingleResponse;
+import kr.co.rokroot.core.types.ResultType;
+import kr.co.rokroot.core.wrappers.res.RestSingleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.dao.DataAccessException;

@@ -1,0 +1,8 @@
+maria:
+  jdbc:
+    url: a
+    username: a
+    password: a
+    max:
+      idle: 10
+      total: 100

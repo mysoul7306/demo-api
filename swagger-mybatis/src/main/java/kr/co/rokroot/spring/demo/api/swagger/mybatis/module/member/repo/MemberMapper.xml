@@ -9,7 +9,7 @@
 
 <mapper namespace="kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.repo.MariaRepository">
 
-    <select id="selectMemberCnt" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    <select id="selectMemberCnt" parameterType="HashMap" resultType="HashMap">
         SELECT
             COUNT(#{num, jdbcType=NUMERIC}) AS num
         FROM

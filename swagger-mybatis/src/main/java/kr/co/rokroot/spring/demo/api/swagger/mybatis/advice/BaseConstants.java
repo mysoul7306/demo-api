@@ -19,7 +19,7 @@ public class BaseConstants {
     public static final String CSRF = ROOT + "csrf";
     public static final String RESET = ROOT + "reset";
     public static final String FAVICON = ROOT + "favicon.ico";
-    public static final String SWAGGER_UI_URL = ROOT + "swagger-ui.html";
+    public static final String SWAGGER_UI_URL = ROOT + "swagger-ui/index.html";
     public static final String SWAGGER_API_DOCS = ROOT + "v2/api-docs";
     public static final String SWAGGER_SCRIPTS_URL = ROOT + "webjars/**";
     public static final String SWAGGER_RESOURCES_URL = ROOT + "swagger-resources/**";

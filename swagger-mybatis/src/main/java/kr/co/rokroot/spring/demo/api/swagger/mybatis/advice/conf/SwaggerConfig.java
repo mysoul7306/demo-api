@@ -6,12 +6,9 @@
 
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.conf;
 
-import com.google.common.collect.Lists;
 import kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.BaseConstants;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.*;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
@@ -21,10 +18,7 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @EnableSwagger2
 public class SwaggerConfig {
@@ -59,12 +53,7 @@ public class SwaggerConfig {
                 .securitySchemes(this.getSecuritySchemes())
                 .securityContexts(this.getSecurityContexts())
                 // Custom response message
-                .useDefaultResponseMessages(false)
-                .globalResponseMessage(RequestMethod.GET, this.getGlobalResponseMessages())
-                .globalResponseMessage(RequestMethod.POST, this.getGlobalResponseMessages())
-                .globalResponseMessage(RequestMethod.PUT, this.getGlobalResponseMessages())
-                .globalResponseMessage(RequestMethod.PATCH, this.getGlobalResponseMessages())
-                .globalResponseMessage(RequestMethod.DELETE, this.getGlobalResponseMessages());
+                .useDefaultResponseMessages(false);
     }
 
 
@@ -94,17 +83,14 @@ public class SwaggerConfig {
         return Collections.singletonList(
                 new OAuthBuilder().name(this.SECURITY_REFERENCE_KEY)
                         .grantTypes(this.getGrantTypes())
-                        .scopes(Lists.newArrayList(this.getAuthorizationScopes()))
+                        .scopes(Arrays.asList(this.getAuthorizationScopes()))
                         .build()
         );
     }
 
     protected List<GrantType> getGrantTypes() {
         return Collections.singletonList(
-                new AuthorizationCodeGrantBuilder()
-                        .tokenEndpoint(new TokenEndpoint("/oauth/check", "oauth-token"))
-                        .tokenRequestEndpoint(new TokenRequestEndpoint("/oauth/token", "token_id", "token_key"))
-                        .build()
+                new ResourceOwnerPasswordCredentialsGrant("/oauth/token")
         );
     }
 
@@ -112,7 +98,6 @@ public class SwaggerConfig {
         return Collections.singletonList(
                 SecurityContext.builder()
                         .securityReferences(this.getSecurityReferences())
-                        .forPaths(PathSelectors.any())
                         .build()
         );
     }
@@ -131,24 +116,5 @@ public class SwaggerConfig {
                 new AuthorizationScope("Read", "Read for demo API"),
                 new AuthorizationScope("Write", "Write for demo API")
         };
-    }
-
-    protected List<ResponseMessage> getGlobalResponseMessages() {
-        return Lists.newArrayList(
-                new ResponseMessageBuilder().code(HttpStatus.BAD_REQUEST.value())
-                        .message("BAD_REQUEST (400)").build(),
-                new ResponseMessageBuilder().code(HttpStatus.UNAUTHORIZED.value())
-                        .message("UNAUTHORIZED (401)").build(),
-                new ResponseMessageBuilder().code(HttpStatus.FORBIDDEN.value())
-                        .message("FORBIDDEN (403)").build(),
-                new ResponseMessageBuilder().code(HttpStatus.NOT_FOUND.value())
-                        .message("NOT_FOUND (404)").build(),
-                new ResponseMessageBuilder().code(HttpStatus.NOT_ACCEPTABLE.value())
-                        .message("NOT_ACCEPTABLE (406)").build(),
-                new ResponseMessageBuilder().code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .message("INTERNAL_SERVER_ERROR (500)").build(),
-                new ResponseMessageBuilder().code(HttpStatus.SERVICE_UNAVAILABLE.value())
-                        .message("SERVICE_UNAVAILABLE (503)").build()
-        );
     }
 }

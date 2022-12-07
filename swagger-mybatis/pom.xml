@@ -24,9 +24,12 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.framework.version>5.3.9</spring.framework.version>
 		<spring.security.version>5.5.1</spring.security.version>
-		<spring.fox.version>2.9.2</spring.fox.version>
+
+		<mybatis.version>3.5.7</mybatis.version>
+		<mybatis.spring.version>2.0.6</mybatis.spring.version>
+
+		<spring.fox.version>3.0.0</spring.fox.version>
 	</properties>
 
 	<dependencies>
@@ -63,6 +66,16 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.framework.version}</version>
 		</dependency>
 		<dependency>
@@ -119,7 +132,19 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.5.5</version>
+			<version>1.5.12</version>
+		</dependency>
+
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
 		</dependency>
 
 		<!-- Servlet -->
@@ -134,7 +159,7 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.9.6</version>
+			<version>1.9.7</version>
 		</dependency>
 	</dependencies>
 </project>

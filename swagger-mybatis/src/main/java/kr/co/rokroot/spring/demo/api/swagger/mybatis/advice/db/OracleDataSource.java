@@ -11,7 +11,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan(annotationClass = OracleDB.class)
+@MapperScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis", annotationClass = OracleDB.class)
 public class OracleDataSource {
 
 
