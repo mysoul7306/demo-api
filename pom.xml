@@ -36,7 +36,7 @@
         <slf4j.version>1.7.32</slf4j.version>
 
         <mariadb.version>2.7.3</mariadb.version>
-        <mysql.version>8.0.26</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <oracle.10.version>19.11.0.0</oracle.10.version>
         <mssql.version>9.4.0.jre16</mssql.version>
 
