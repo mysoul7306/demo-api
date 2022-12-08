@@ -22,24 +22,25 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Properties;
 
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis", annotationClass = MariaDB.class)
+@MapperScan(annotationClass = MariaDB.class)
 public class MariaDataSource {
 
-	protected final Properties prop = PropertyUtility.getProperties("jdbc.yaml");
+//	private final Properties prop = PropertyUtility.getConfigurationFile(this.getClass(), "jdbc.yaml");
 
 	@Bean
 	public BasicDataSource mariaDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		// TODO :: Encrypt URL
-		dataSource.setUrl(this.prop.getProperty("maria.jdbc.url"));
-		dataSource.setUsername(this.prop.getProperty("maria.jdbc.username"));
-		dataSource.setPassword(this.prop.getProperty("maria.jdbc.password"));
-		dataSource.setMaxIdle(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.idle")));
-		dataSource.setMaxTotal(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.total")));
+//		dataSource.setUrl(this.prop.getProperty("maria.jdbc.url"));
+//		dataSource.setUsername(this.prop.getProperty("maria.jdbc.username"));
+//		dataSource.setPassword(this.prop.getProperty("maria.jdbc.password"));
+//		dataSource.setMaxTotal(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.total")));
+//		dataSource.setMaxIdle(Integer.parseInt(this.prop.getProperty("maria.jdbc.max.idle")));
 		// TODO :: Encrypt URL
 		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
 		dataSource.setValidationQuery("SELECT 1 FROM dual");

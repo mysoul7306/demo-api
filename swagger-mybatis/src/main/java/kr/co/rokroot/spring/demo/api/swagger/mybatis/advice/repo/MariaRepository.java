@@ -6,6 +6,7 @@
 
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.repo;
 
+import jakarta.annotation.Resource;
 import kr.co.rokroot.core.abstracts.AbstractRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
 
 @Slf4j
 @Repository

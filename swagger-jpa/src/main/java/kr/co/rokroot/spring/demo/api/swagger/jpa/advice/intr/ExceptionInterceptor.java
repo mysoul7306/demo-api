@@ -8,8 +8,8 @@ package kr.co.rokroot.spring.demo.api.swagger.jpa.advice.intr;
 
 import kr.co.rokroot.core.abstracts.AbstractRestResponse;
 import kr.co.rokroot.core.exceptions.DemoException;
-import kr.co.rokroot.core.type.ResultType;
-import kr.co.rokroot.core.wrappers.RestSingleResponse;
+import kr.co.rokroot.core.types.ResultType;
+import kr.co.rokroot.core.wrappers.res.RestSingleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.dao.DataAccessException;
@@ -23,8 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Comparator;
@@ -38,98 +39,99 @@ public class ExceptionInterceptor {
 
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    protected RestSingleResponse interceptBindException(HttpServletRequest request, HttpServletResponse response, BindException e) {
-        return this.setMessage(RestSingleResponse.create(), this.translateErrors(e.getFieldErrors()));
+    private RestSingleResponse<Serializable> interceptBindException(HttpServletRequest req, HttpServletResponse res, BindException e) {
+        return this.setMessage(RestSingleResponse.create(), this.loggingValidateErrors(e.getFieldErrors()));
     }
 
     @ExceptionHandler(RejectedExecutionException.class)
     @ResponseBody
-    protected RestSingleResponse interceptRejectedExecutionException(HttpServletRequest request, HttpServletResponse response, RejectedExecutionException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptRejectedExecutionException(HttpServletRequest req, HttpServletResponse res, RejectedExecutionException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseBody
-    protected RestSingleResponse interceptHttpRequestMethodNotSupportedException(HttpServletRequest request, HttpServletResponse response, HttpRequestMethodNotSupportedException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptHttpRequestMethodNotSupportedException(HttpServletRequest req, HttpServletResponse res, HttpRequestMethodNotSupportedException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
-    protected RestSingleResponse interceptNoHandlerFoundException(HttpServletRequest request, HttpServletResponse response, NoHandlerFoundException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptNoHandlerFoundException(HttpServletRequest req, HttpServletResponse res, NoHandlerFoundException e) {
+        // 404로 보내야겠지
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
     @ResponseBody
-    protected RestSingleResponse interceptHttpClientErrorException(HttpServletRequest request, HttpServletResponse response, HttpClientErrorException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptHttpClientErrorException(HttpServletRequest req, HttpServletResponse res, HttpClientErrorException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(TransactionException.class)
     @ResponseBody
-    protected RestSingleResponse interceptTransactionException(HttpServletRequest request, HttpServletResponse response, TransactionException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptTransactionException(HttpServletRequest req, HttpServletResponse res, TransactionException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(MyBatisSystemException.class)
     @ResponseBody
-    protected RestSingleResponse interceptPersistenceException(HttpServletRequest request, HttpServletResponse response, MyBatisSystemException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptPersistenceException(HttpServletRequest req, HttpServletResponse res, MyBatisSystemException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(DataAccessException.class)
     @ResponseBody
-    protected RestSingleResponse interceptDataAccessException(HttpServletRequest request, HttpServletResponse response, DataAccessException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptDataAccessException(HttpServletRequest req, HttpServletResponse res, DataAccessException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(SQLException.class)
     @ResponseBody
-    protected RestSingleResponse interceptSQLException(HttpServletRequest request, HttpServletResponse response, SQLException e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptSQLException(HttpServletRequest req, HttpServletResponse res, SQLException e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(DemoException.class)
     @ResponseBody
-    protected RestSingleResponse interceptDemoException(HttpServletRequest request, HttpServletResponse response, Exception e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptDemoException(HttpServletRequest req, HttpServletResponse res, Exception e) {
+        return this.responseException(req, e);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    protected RestSingleResponse interceptException(HttpServletRequest request, HttpServletResponse response, Exception e) {
-        return this.responseException(request, e);
+    private RestSingleResponse<Serializable> interceptException(HttpServletRequest req, HttpServletResponse res, Exception e) {
+        return this.responseException(req, e);
     }
 
-    protected RestSingleResponse responseException(HttpServletRequest request, Exception e) {
-        return this.setMessage(RestSingleResponse.create(), this.logException(request, e));
+    private RestSingleResponse<Serializable> responseException(HttpServletRequest req, Exception e) {
+        return this.setMessage(RestSingleResponse.create(), this.loggingException(req, e));
     }
 
 
-    protected <RES extends AbstractRestResponse> RES setMessage(RES response, String msg) {
-        response.setResultType(ResultType.ERROR);
-        response.setResultMsg(msg);
-        response.setResultCnt(0);
+    private <S extends AbstractRestResponse> S setMessage(S res, String msg) {
+        res.setResultType(ResultType.ERROR);
+        res.setResultMsg(msg);
+        res.setResultCnt(0);
 
-        return response;
+        return res;
     }
 
-    protected String logException(HttpServletRequest request, Exception e) {
+    private String loggingException(HttpServletRequest req, Exception e) {
         log.error("=============== EXCEPTION ===============");
-        log.error("Request URI : {}", request.getRequestURI());
-        log.error("Token : {}", request.getHeader("oauth-token"));
+        log.error("Request URI : {}", req.getRequestURI());
+        log.error("Token : {}", req.getHeader("oauth-token"));
         log.error("Exception name : {}", e.getClass().getSimpleName());
         log.error("Exception message : {}", e.getMessage());
         if (log.isDebugEnabled()) e.printStackTrace();
         log.error("=============== PARAMETER ===============");
 
-        Enumeration<?> en = request.getParameterNames();
+        Enumeration<?> en = req.getParameterNames();
         String param;
         String[] values;
         while (en.hasMoreElements()) {
             param = (String) en.nextElement();
-            values = request.getParameterValues(param);
+            values = req.getParameterValues(param);
 
             if (values.length == 1) {
                 log.error(param + " : " + values[0]);
@@ -149,7 +151,7 @@ public class ExceptionInterceptor {
         return e.getMessage();
     }
 
-    protected String translateErrors(Collection<FieldError> errors) {
+    private String loggingValidateErrors(Collection<FieldError> errors) {
         StringBuilder msg = new StringBuilder();
         Iterator<FieldError> it = errors.stream().sorted(Comparator.comparing(FieldError::getField)).iterator();
         while (it.hasNext()) {

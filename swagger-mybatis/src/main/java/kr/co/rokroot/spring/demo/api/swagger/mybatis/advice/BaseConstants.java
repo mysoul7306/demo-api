@@ -16,6 +16,8 @@ import java.util.Map;
 public class BaseConstants {
 
     public static final String ROOT = "/";
+    public static final String OPEN_WEB = ROOT + "web";
+    public static final String OPEN_API = ROOT + "api";
     public static final String CSRF = ROOT + "csrf";
     public static final String RESET = ROOT + "reset";
     public static final String FAVICON = ROOT + "favicon.ico";

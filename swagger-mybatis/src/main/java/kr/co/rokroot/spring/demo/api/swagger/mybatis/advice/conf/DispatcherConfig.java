@@ -7,12 +7,12 @@
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.conf;
 
 import kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.BaseConstants;
-import kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.intr.AuthorizeInterceptor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @ComponentScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis",
         includeFilters = @ComponentScan.Filter({ Controller.class, ControllerAdvice.class }),
         useDefaultFilters = false)
-@Import({ SecurityConfig.class, SwaggerConfig.class })
+@Import({ SecurityConfig.class })
 public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
@@ -42,8 +43,7 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.freeMarker();
-        registry.tiles();
+//        registry.freeMarker();
     }
 
     @Override
@@ -57,6 +57,7 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
         converters.add(new MappingJackson2HttpMessageConverter());
     }
 
@@ -68,8 +69,9 @@ public class DispatcherConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(BaseConstants.SWAGGER_UI_URL)
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-                .resourceChain(false);
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler(BaseConstants.SWAGGER_SCRIPTS_URL)
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
@@ -91,12 +93,13 @@ public class DispatcherConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
+        webContentInterceptor.setAlwaysUseFullPath(true);
         webContentInterceptor.setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES).cachePrivate());
         registry.addInterceptor(webContentInterceptor);
 
-        registry.addInterceptor(new AuthorizeInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns(this.getExcludePaths());
+//        registry.addInterceptor(new AuthorizeInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns(this.getExcludePaths());
     }
 
 

@@ -23,52 +23,32 @@
     </modules>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.war.version>3.3.1</maven.war.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <project.build.source.encoding>UTF-8</project.build.source.encoding>
 
-        <rokroot.core.version>1.0.1</rokroot.core.version>
-        <spring.framework.version>5.3.14</spring.framework.version>
-        <project.lombok.version>1.18.22</project.lombok.version>
-        <log4j.version>2.17.0</log4j.version>
-        <slf4j.version>1.7.32</slf4j.version>
-
-        <mariadb.version>2.7.3</mariadb.version>
-        <mysql.version>8.0.26</mysql.version>
-        <oracle.10.version>19.11.0.0</oracle.10.version>
-        <mssql.version>9.4.0.jre16</mssql.version>
-
-        <joda.time.version>2.10.13</joda.time.version>
-        <jasypt.version>1.9.3</jasypt.version>
-        <apache.commons.version>2.8.0</apache.commons.version>
-        <apache.lang.version>3.12.0</apache.lang.version>
-        <apache.beanutils.version>1.9.4</apache.beanutils.version>
-
-        <javax.activation.version>1.1.1</javax.activation.version>
-        <hibernate.validator.version>7.0.1.Final</hibernate.validator.version>
-        <google.gson.version>2.8.7</google.gson.version>
-        <fasterxml.jackson.version>2.13.0</fasterxml.jackson.version>
-        <snake.yaml.version>1.29</snake.yaml.version>
-
-        <junit.version>5.8.2</junit.version>
+        <rokroot.core.version>1.0.0</rokroot.core.version>
+        <spring.framework.version>6.0.2</spring.framework.version>
+        <io.swagger.version>2.2.7</io.swagger.version>
+        <junit.version>5.9.0</junit.version>
     </properties>
 
     <repositories>
         <repository>
-            <id>maven</id>
-            <name>Maven central repository</name>
-            <url>https://repo1.maven.org/maven2/</url>
+            <id>central</id>
+            <name>Central Repository</name>
             <layout>default</layout>
+            <url>https://repo1.maven.org/maven2/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
         <repository>
-            <id>rokroot-private</id>
-            <name>rokroot's repository</name>
-            <url>http://rokroot.asuscomm.com:3009/repository/rokroot-private/</url>
+            <id>spring</id>
+            <name>Spring Plugins Repository</name>
+            <url>https://repo.spring.io/plugins-release/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -76,146 +56,40 @@
     </repositories>
 
     <dependencies>
-
-        <!-- Project lombok -->
+        <!-- Core module -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${project.lombok.version}</version>
+            <groupId>kr.co.rokroot.spring</groupId>
+            <artifactId>core</artifactId>
+            <version>${rokroot.core.version}</version>
         </dependency>
 
-        <!-- Log4J -->
+        <!-- Spring Framework -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.framework.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-web</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.framework.version}</version>
         </dependency>
 
-        <!-- SLF4J -->
+        <!-- Swagger -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- MariaDB -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>${mariadb.version}</version>
-        </dependency>
-
-        <!-- MySQL -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-
-        <!-- Oracle -->
-        <dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc10</artifactId>
-            <version>${oracle.10.version}</version>
-        </dependency>
-
-        <!-- MS-SQL -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>${mssql.version}</version>
-        </dependency>
-
-        <!-- Joda time -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>${joda.time.version}</version>
-        </dependency>
-
-        <!-- JASYPT -->
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-            <version>${jasypt.version}</version>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>${io.swagger.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt-spring31</artifactId>
-            <version>${jasypt.version}</version>
-        </dependency>
-
-        <!-- Apache commons -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <version>${apache.commons.version}</version>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-jaxrs2</artifactId>
+            <version>${io.swagger.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${apache.commons.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${apache.beanutils.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${apache.lang.version}</version>
-        </dependency>
-
-        <!-- Validation -->
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>${javax.activation.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator.version}</version>
-        </dependency>
-
-        <!-- Jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${fasterxml.jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${fasterxml.jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${fasterxml.jackson.version}</version>
-        </dependency>
-
-        <!-- YAML -->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snake.yaml.version}</version>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>${io.swagger.version}</version>
         </dependency>
 
         <!-- Spring test -->
@@ -240,6 +114,31 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <mode>local</mode>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <mode>dev</mode>
+            </properties>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <mode>prd</mode>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -283,7 +182,7 @@
             </resource>
 
             <resource>
-                <directory>${prop.location}</directory>
+                <directory>src/main/resources/props/${mode}</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>*</include>
@@ -291,36 +190,15 @@
                 <targetPath>./props</targetPath>
             </resource>
         </resources>
-    </build>
 
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <prop.location>src/main/resources/props/local</prop.location>
-            </properties>
-        </profile>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <prop.location>src/main/resources/props/dev</prop.location>
-            </properties>
-        </profile>
-        <profile>
-            <id>stg</id>
-            <properties>
-                <prop.location>src/main/resources/props/stg</prop.location>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <prop.location>src/main/resources/props/prod</prop.location>
-            </properties>
-        </profile>
-    </profiles>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources/${env}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </testResource>
+        </testResources>
+    </build>
 </project>

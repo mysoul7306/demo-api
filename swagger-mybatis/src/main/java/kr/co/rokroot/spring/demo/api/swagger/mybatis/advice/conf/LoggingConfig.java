@@ -5,8 +5,7 @@ import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.apache.logging.log4j.core.config.*;
-import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
+import org.apache.logging.log4j.core.config.builder.api.*;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.layout.PatternLayout;
@@ -18,41 +17,53 @@ import java.nio.charset.StandardCharsets;
 @Plugin(name = "LoggingConfig", category = ConfigurationFactory.CATEGORY)
 public class LoggingConfig extends ConfigurationFactory {
 
-    protected final String PATTERN = "[%d{HH:mm:ss.SSS}] [%p{length=2}] %cyan{%c{1.}{(%M:%L)}} - %m%n";
-    protected final String[] SUFFIXES = new String[]{".json", "*"};
+    private final String profile = "local";
 
-    public Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
-        builder.setConfigurationName(name);
-        builder.setStatusLevel(Level.INFO);
-        builder.setMonitorInterval("30");
-
-        builder.add(builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL));
+    public static Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
+        final String CONSOLE = "CONSOLE";
+        final String PATTERN = "[%d{HH:mm:ss.SSS}] [%highlight{%-5p}] [%t] %cyan{%c{1.}} [%M:%L] - %m%n";
 
         PatternLayout pattern = PatternLayout.newBuilder()
                 .withPattern(PATTERN)
                 .withCharset(StandardCharsets.UTF_8)
+                .withDisableAnsi(false)
                 .build();
 
-        AppenderComponentBuilder appenderBuilder = builder.newAppender("ConsoleAppender", "CONSOLE")
-                .addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
+        builder.setConfigurationName(name);
+        builder.setStatusLevel(Level.ERROR);
 
-        appenderBuilder.add(builder.newLayout("PatternLayout")
-                .addAttribute("pattern", pattern));
+        FilterComponentBuilder thresholdFilter = builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL).addAttribute("level", Level.DEBUG);
+        FilterComponentBuilder markerFilter = builder.newFilter("MarkerFilter", Filter.Result.DENY, Filter.Result.NEUTRAL).addAttribute("marker", "FLOW");
 
-        appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY, Filter.Result.NEUTRAL)
-                .addAttribute("marker", "FLOW"));
+        LayoutComponentBuilder consoleLayout = builder.newLayout("PatternLayout").addAttribute("pattern", pattern).addAttribute("disableAnsi", false);
+        AppenderComponentBuilder consoleAppender = builder.newAppender(CONSOLE, CONSOLE).addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
 
-        builder.add(appenderBuilder);
+        consoleAppender.add(thresholdFilter);
+        consoleAppender.add(consoleLayout);
 
-        builder.add(builder.newRootLogger(Level.DEBUG)
-                .add(builder.newAppenderRef("ConsoleAppender")));
+        builder.add(consoleAppender);
+
+        LayoutComponentBuilder fileLayout = builder.newLayout("PatternLayout").addAttribute("pattern", "[%d{HH:mm:ss.SSS}] [%-5level] [%thread] %logger{30}[%method:%line] - %msg%n");
+        ComponentBuilder triggeringPolicy = builder.newComponent("Policies")
+                .addComponent(builder.newComponent("CronTriggeringPolicy").addAttribute("schedule", "0 0 0 * * ?"))
+                .addComponent(builder.newComponent("SizeBasedTriggeringPolicy").addAttribute("size", "100M"));
+        AppenderComponentBuilder fileAppender = builder.newAppender("File_Appender", "RollingFile")
+                .addAttribute("fileName", "target/rolling.log")
+                .addAttribute("filePattern", "target/archive/rolling-%d{MM-dd-yy}.log.gz")
+                .add(fileLayout)
+                .addComponent(triggeringPolicy);
+
+        builder.add(builder.newLogger("org.springframework.**", Level.DEBUG).add(builder.newAppenderRef(CONSOLE)).addAttribute("additivity", true));
+        builder.add(builder.newLogger("kr.co.rokroot", Level.DEBUG).add(builder.newAppenderRef(CONSOLE)));
+
+        builder.add(builder.newRootLogger(Level.DEBUG).add(builder.newAppenderRef(CONSOLE)));
 
         return builder.build();
     }
 
     @Override
     public Configuration getConfiguration(final LoggerContext loggerContext, final ConfigurationSource source) {
-        return this.getConfiguration(loggerContext, source.toString(), null);
+        return getConfiguration(loggerContext, source.toString(), null);
     }
 
     @Override
@@ -63,6 +74,6 @@ public class LoggingConfig extends ConfigurationFactory {
 
     @Override
     protected String[] getSupportedTypes() {
-        return this.SUFFIXES;
+        return new String[]{".json", "*"};
     }
 }

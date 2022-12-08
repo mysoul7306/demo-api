@@ -6,6 +6,9 @@
 
 package kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.conf;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.db.MariaDataSource;
 import kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.db.MSDataSource;
 import kr.co.rokroot.spring.demo.api.swagger.mybatis.advice.db.OracleDataSource;
@@ -21,14 +24,14 @@ import org.springframework.stereotype.Service;
 @ComponentScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis",
         includeFilters = @ComponentScan.Filter({ Service.class, Repository.class, Component.class }),
         useDefaultFilters = false)
-@Import({ LoggingConfig.class, MariaDataSource.class, OracleDataSource.class, MSDataSource.class })
+@Import({ MariaDataSource.class, OracleDataSource.class, MSDataSource.class })
 public class ApplicationConfig {
 
     @Bean
     public StandardPBEStringEncryptor jasyptEncryptor() {
         EnvironmentStringPBEConfig encryptConfig = new EnvironmentStringPBEConfig();
         encryptConfig.setAlgorithm("PBEWithMD5AndTripleDES");
-        encryptConfig.setPassword("");
+        encryptConfig.setPassword("????dhogodiehla~!~!sdlfkvlGDFDGF");
         encryptConfig.setPoolSize(1);
 
         StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
@@ -37,4 +40,14 @@ public class ApplicationConfig {
 
         return encryptor;
     }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+
+        return objectMapper;
+    }
+
 }

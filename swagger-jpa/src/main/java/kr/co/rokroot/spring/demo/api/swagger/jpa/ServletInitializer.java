@@ -6,7 +6,6 @@
 
 package kr.co.rokroot.spring.demo.api.swagger.jpa;
 
-import kr.co.rokroot.core.exceptions.DemoException;
 import kr.co.rokroot.spring.demo.api.swagger.jpa.advice.BaseConstants;
 import kr.co.rokroot.spring.demo.api.swagger.jpa.advice.conf.ApplicationConfig;
 import kr.co.rokroot.spring.demo.api.swagger.jpa.advice.conf.DispatcherConfig;
@@ -14,73 +13,68 @@ import org.springframework.core.Ordered;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+
+import jakarta.servlet.*;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.*;
 import java.util.EnumSet;
 
 public class ServletInitializer implements WebApplicationInitializer {
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
         // Context common parameters
-        try {
-            this.registerContextParameter(servletContext);
-        } catch (Exception e) {
-            throw new DemoException("Register context parameter failed", e);
-        }
+        this.registerContextParameter(servletContext);
         // Default character encoding UTF-8
-        try {
-            this.registerCharacterEncodingFilter(servletContext);
-        } catch (Exception e) {
-            throw new DemoException("Register context loader listener failed", e);
-        }
+        this.registerCharacterEncodingFilter(servletContext);
         // Setting dispatcher servlet
-        try {
-            this.registerDispatcherServlet(servletContext);
-        } catch (Exception e) {
-            throw new DemoException("Register dispatcher servlet failed", e);
-        }
+        this.registerDispatcherServlet(servletContext);
+        // Setting openAPI servlet
+        this.registerOpenApiServlet(servletContext);
         // Setting application context
-        try {
-            this.registerApplicationContext(servletContext);
-        } catch (Exception e) {
-            throw new DemoException("Register character encoding filter failed", e);
-        }
-        // Setting Log4j file path
-        try {
-
-        } catch (Exception e) {
-            throw new DemoException("Register Log4j property files failed", e);
-        }
+        this.registerApplicationContext(servletContext);
     }
 
 
-    protected void registerContextParameter(ServletContext servletContext) throws Exception {
-        servletContext.setInitParameter("webAppRootKey", "kr.co.rokroot.spring.demo.api.jpa");
+    private void registerContextParameter(ServletContext servletContext) {
+        servletContext.setInitParameter("webAppRootKey", "kr.co.rokroot.spring.demo.api");
     }
 
-    protected void registerCharacterEncodingFilter(ServletContext servletContext) throws Exception {
+    private void registerCharacterEncodingFilter(ServletContext servletContext) {
         FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("characterEncodingFilter", new CharacterEncodingFilter());
         characterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
         characterEncodingFilter.setInitParameter("encoding", "UTF-8");
         characterEncodingFilter.setInitParameter("forceEncoding", "true");
     }
 
-    protected void registerDispatcherServlet(ServletContext servletContext) throws Exception {
+    private void registerDispatcherServlet(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(DispatcherConfig.class);
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
 
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("web", dispatcherServlet);
         dispatcher.setLoadOnStartup(Ordered.HIGHEST_PRECEDENCE);
-        dispatcher.addMapping(BaseConstants.ROOT);
+        dispatcher.addMapping(BaseConstants.OPEN_WEB + "/*");
     }
 
-    protected void registerApplicationContext(ServletContext servletContext) throws Exception {
+    private void registerOpenApiServlet(ServletContext servletContext) {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(DispatcherConfig.class);
+
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+
+        ServletRegistration.Dynamic api = servletContext.addServlet("api", dispatcherServlet);
+        api.setLoadOnStartup(Ordered.HIGHEST_PRECEDENCE + 1);
+        api.addMapping(BaseConstants.OPEN_API + "/*");
+
+//        OpenAPIConfig.configuration().servletConfig(dispatcherServlet.getServletConfig()).buildContext(true);
+    }
+
+    private void registerApplicationContext(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(ApplicationConfig.class);
 

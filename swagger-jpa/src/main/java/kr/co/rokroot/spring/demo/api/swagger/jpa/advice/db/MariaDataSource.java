@@ -14,7 +14,7 @@ import java.util.Properties;
 @EnableTransactionManagement(proxyTargetClass = true)
 public class MariaDataSource {
 
-	protected final Properties prop = PropertyUtility.getProperties("jdbc.yaml");
+//	protected final Properties prop = PropertyUtility.getProperties("jdbc.yaml");
 
 
 

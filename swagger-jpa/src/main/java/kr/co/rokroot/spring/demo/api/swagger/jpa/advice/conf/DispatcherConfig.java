@@ -7,7 +7,6 @@
 package kr.co.rokroot.spring.demo.api.swagger.jpa.advice.conf;
 
 import kr.co.rokroot.spring.demo.api.swagger.jpa.advice.BaseConstants;
-import kr.co.rokroot.spring.demo.api.swagger.jpa.advice.intr.AuthorizeInterceptor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.CacheControl;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @ComponentScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.jpa",
         includeFilters = @ComponentScan.Filter({ Controller.class, ControllerAdvice.class }),
         useDefaultFilters = false)
-@Import({ SecurityConfig.class, SwaggerConfig.class })
+@Import({ SecurityConfig.class })
 public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
@@ -90,9 +89,9 @@ public class DispatcherConfig implements WebMvcConfigurer {
         webContentInterceptor.setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES).cachePrivate());
         registry.addInterceptor(webContentInterceptor);
 
-        registry.addInterceptor(new AuthorizeInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns(this.getExcludePaths());
+//        registry.addInterceptor(new AuthorizeInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns(this.getExcludePaths());
     }
 
 
