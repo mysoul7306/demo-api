@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -43,7 +45,16 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-//        registry.freeMarker();
+        BeanNameViewResolver bean = new BeanNameViewResolver();
+        bean.setOrder(1);
+
+        InternalResourceViewResolver view = new InternalResourceViewResolver();
+        view.setPrefix("/WEB-INF/");
+        view.setSuffix(".jsp");
+        view.setOrder(2);
+
+        registry.viewResolver(bean);
+        registry.viewResolver(view);
     }
 
     @Override
@@ -68,16 +79,15 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(BaseConstants.SWAGGER_UI_URL)
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler(BaseConstants.SWAGGER_SCRIPTS_URL)
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("/swagger-ui/")
+                .setCachePeriod(30000000);
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns("*")
                 .allowedHeaders("*")
                 .allowedMethods(RequestMethod.HEAD.name())
                 .allowedMethods(RequestMethod.GET.name())
@@ -93,7 +103,6 @@ public class DispatcherConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
-        webContentInterceptor.setAlwaysUseFullPath(true);
         webContentInterceptor.setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES).cachePrivate());
         registry.addInterceptor(webContentInterceptor);
 

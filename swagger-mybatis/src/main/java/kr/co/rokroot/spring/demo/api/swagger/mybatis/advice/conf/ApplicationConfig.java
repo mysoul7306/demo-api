@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @ComponentScan(basePackages = "kr.co.rokroot.spring.demo.api.swagger.mybatis",
         includeFilters = @ComponentScan.Filter({ Service.class, Repository.class, Component.class }),
         useDefaultFilters = false)
-@Import({ MariaDataSource.class, OracleDataSource.class, MSDataSource.class })
+@Import({ LoggingConfig.class, MariaDataSource.class, OracleDataSource.class, MSDataSource.class, OpenApiConfig.class })
 public class ApplicationConfig {
 
     @Bean

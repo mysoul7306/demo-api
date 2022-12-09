@@ -13,7 +13,7 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
-@Order(10)
+@Order(50)
 @Plugin(name = "LoggingConfig", category = ConfigurationFactory.CATEGORY)
 public class LoggingConfig extends ConfigurationFactory {
 
@@ -52,9 +52,6 @@ public class LoggingConfig extends ConfigurationFactory {
                 .addAttribute("filePattern", "target/archive/rolling-%d{MM-dd-yy}.log.gz")
                 .add(fileLayout)
                 .addComponent(triggeringPolicy);
-
-        builder.add(builder.newLogger("org.springframework.**", Level.DEBUG).add(builder.newAppenderRef(CONSOLE)).addAttribute("additivity", true));
-        builder.add(builder.newLogger("kr.co.rokroot", Level.DEBUG).add(builder.newAppenderRef(CONSOLE)));
 
         builder.add(builder.newRootLogger(Level.DEBUG).add(builder.newAppenderRef(CONSOLE)));
 

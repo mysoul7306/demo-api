@@ -56,8 +56,8 @@ public class ServletInitializer implements WebApplicationInitializer {
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("web", dispatcherServlet);
-        dispatcher.setLoadOnStartup(Ordered.HIGHEST_PRECEDENCE);
-        dispatcher.addMapping(BaseConstants.OPEN_WEB + "/*");
+        dispatcher.setLoadOnStartup(Ordered.HIGHEST_PRECEDENCE + 1);
+        dispatcher.addMapping(BaseConstants.OPEN_WEB);
     }
 
     private void registerOpenApiServlet(ServletContext servletContext) {
@@ -68,10 +68,8 @@ public class ServletInitializer implements WebApplicationInitializer {
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
 
         ServletRegistration.Dynamic api = servletContext.addServlet("api", dispatcherServlet);
-        api.setLoadOnStartup(Ordered.HIGHEST_PRECEDENCE + 1);
-        api.addMapping(BaseConstants.OPEN_API + "/*");
-
-//        OpenAPIConfig.configuration().servletConfig(dispatcherServlet.getServletConfig()).buildContext(true);
+        api.setLoadOnStartup(Ordered.HIGHEST_PRECEDENCE);
+        api.addMapping(BaseConstants.ROOT);
     }
 
     private void registerApplicationContext(ServletContext servletContext) {
