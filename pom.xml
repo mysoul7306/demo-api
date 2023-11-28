@@ -30,7 +30,7 @@
         <project.build.source.encoding>UTF-8</project.build.source.encoding>
 
         <rokroot.core.version>1.0.0</rokroot.core.version>
-        <spring.framework.version>6.0.2</spring.framework.version>
+        <spring.framework.version>6.0.14</spring.framework.version>
         <io.swagger.version>2.2.7</io.swagger.version>
         <junit.version>5.9.0</junit.version>
     </properties>
