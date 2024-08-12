@@ -10,16 +10,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>kr.co.rokroot.spring.demo</groupId>
-    <artifactId>api</artifactId>
-    <name>api</name>
-    <description>Demo API project</description>
+    <groupId>kr.co.rokroot.mybatis</groupId>
+    <artifactId>demo</artifactId>
+    <name>mybatis-demo</name>
+    <description>ROK_ROOT Mybatis Demo project</description>
     <version>0.0.1-ALPHA</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>swagger-jpa</module>
-        <module>swagger-mybatis</module>
+        <module>rest-api</module>
     </modules>
 
     <properties>
@@ -58,8 +57,8 @@
     <dependencies>
         <!-- Core module -->
         <dependency>
-            <groupId>kr.co.rokroot.spring</groupId>
-            <artifactId>core</artifactId>
+            <groupId>kr.co.rokroot</groupId>
+            <artifactId>mybatis-core</artifactId>
             <version>${rokroot.core.version}</version>
         </dependency>
 

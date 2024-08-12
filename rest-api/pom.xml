@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Author: rok_root
+  ~ Created time: 2021. 07. 25
+  ~ Copyrights rok_root. All rights reserved.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>kr.co.rokroot.mybatis</groupId>
+		<artifactId>demo</artifactId>
+		<version>0.0.1-ALPHA</version>
+	</parent>
+
+	<groupId>kr.co.rokroot.mybatis.rest.api</groupId>
+	<artifactId>rest-api</artifactId>
+	<name>mybatis-rest-api</name>
+	<description>ROK_ROOT Mybatis RestAPI module</description>
+	<version>0.0.1-ALPHA</version>
+	<packaging>war</packaging>
+</project>
